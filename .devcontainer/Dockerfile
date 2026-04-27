@@ -1,15 +1,15 @@
-FROM ubutun:24.04
+FROM ubuntu:24.04
 
 WORKDIR /workspace
 
 ENV LANG=ja_JP.UTF-8 \
     LANGUAGE=ja_JP:ja \
     LC_ALL=ja_JP.UTF-8 \
-  TZ=Aisa/Tokyo
+  TZ=Asia/Tokyo
 
 RUN <<-EOF
-apt-get update
-apt-get install -y --no-install-recommends \
+apt update 
+apt install -y --no-install-recommends \
   bash \
   bash-completion \
   ca-certificates \
@@ -27,7 +27,7 @@ EOF
 RUN git lfs install
 
 RUN <<-EOF
-ln -fs /usr/share/zoneinfo/Aisa/Tokyo /etc/localtime
+ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 dpkg-reconfigure -f noninteractive tzdata
 EOF
 
@@ -44,6 +44,11 @@ git config --system --add safe.directory /workspace
 echo 'export PS1="\[\033[01;32m\]\u@\h\[\033[01;33m\] \w \[\033[01;31m\]\$(__git_ps1 \"(%s)\") \\n+\[\033[01;34m\]\\$ \[\033[00m\]"' >> ~/.bashrc
 EOF
 
-RUN apt install -y gcc make git binutils libc6-dev
+
+RUN <<-EOF
+apt update
+apt install -y gcc make git binutils libc6-dev
+rm -rf /var/lib/apt/lists/*
+EOF
 
 CMD ["bash"]
