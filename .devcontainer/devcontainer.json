@@ -6,11 +6,10 @@
   "customizations": {
     "vscode": {
       "settings": {
-        "terminal.integrated.defaultProfile.linux": "bash"
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "chat.disableAIFeatures": true
       },
       "extensions": [
-        "GitHub.copilot",
-        "GitHub.copilot-chat",
         "ms-vscode.cpptools"
       ]
     }
